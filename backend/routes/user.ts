@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from 'hono/jwt';
+import {signupInput,signinInput} from "@kartguy/common-app"
 
 const userAPI=new Hono<{
 	Bindings: {
@@ -17,6 +18,15 @@ userAPI.post('/signup', async (c) => {
     }).$extends(withAccelerate())
     
     const body=await c.req.json();
+
+    const{success}=signupInput.safeParse(body);
+
+    if(!success){
+      c.status(403)
+      return c.json({
+        msg:"Wrong input"
+      })
+    }
   
     const userExists= await prisma.user.findUnique({
       where:{
@@ -67,6 +77,15 @@ userAPI.post('/signup', async (c) => {
     }).$extends(withAccelerate())
     
     const body=await c.req.json();
+
+    const {success} =signinInput.safeParse(body);
+
+    if(!success){
+      c.status(403)
+      return c.json({
+        msg:"Wrong input"
+      })
+    }
   
     try {
       const res= await prisma.user.findUnique({
