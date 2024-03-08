@@ -1,1 +1,1 @@
-## Full-Stack Medium clone
+## FullStack Medium clone
