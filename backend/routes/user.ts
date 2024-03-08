@@ -21,7 +21,7 @@ userAPI.post('/signup', async (c) => {
 
     const{success}=signupInput.safeParse(body);
 
-    if(!success){
+    if(!success){ 
       c.status(403)
       return c.json({
         msg:"Wrong input"
