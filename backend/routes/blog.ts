@@ -88,7 +88,8 @@ blogAPI.post('/', async (c) => {
 
     const userId=c.get("userId");
 
-    const body= await c.req.json();
+    const data=await c.req.json();
+    const body=data.data;
 
     const{success}=creatPostInput.safeParse(body);
 
@@ -124,7 +125,8 @@ blogAPI.put('/', async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate());
 
-      const body = await c.req.json();
+      const data=await c.req.json();
+      const body=data.data;
 
       const{success}=updatePostInput.safeParse(body);
 

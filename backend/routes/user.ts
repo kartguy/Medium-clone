@@ -17,8 +17,10 @@ userAPI.post('/signup', async (c) => {
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
     
-    const body=await c.req.json();
-
+    const data=await c.req.json();
+    const body=data.data;
+    console.log(body);
+    
     const{success}=signupInput.safeParse(body);
 
     if(!success){ 
@@ -76,7 +78,8 @@ userAPI.post('/signup', async (c) => {
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
     
-    const body=await c.req.json();
+    const data=await c.req.json();
+    const body=data.data;
 
     const {success} =signinInput.safeParse(body);
 
@@ -113,7 +116,7 @@ userAPI.post('/signup', async (c) => {
       const token=await sign(payload,c.env.JWT_SECRET);
   
       return c.json({
-        msg:"Signin Successful",
+        msg:"Login Successful",
         token:token
       })
       
