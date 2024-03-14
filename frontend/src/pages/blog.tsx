@@ -1,20 +1,27 @@
-import BlogCard from "../components/BlogCard";
+import { useParams } from "react-router-dom";
+import { BlogView } from "../components/BlogView";
+import { useBlog } from "../hooks"
+import Appbar from "../components/AppBar";
 
-const Blog = ()=>{
 
+export const Blog = () =>{
+    const {id}=useParams();
+    
+    const {loading,blog} = useBlog({
+        id: id || ""
+    });
+
+    if(loading){
+        return <div>
+            <Appbar />
+            loading...
+        </div>
+    }
+    
     return (
-        <div className="flex justify-center mt-8">
-            <div className="w-1/2">   
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            </div>
+        <div>
             
-
+            <BlogView data={blog}/>
         </div>
     )
 }
-
-export default Blog;

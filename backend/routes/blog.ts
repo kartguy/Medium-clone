@@ -41,6 +41,8 @@ blogAPI.use('/*', async (c, next) => {
       await next()
     } 
     catch (error) {
+      console.log(error);
+      
       return c.json({error: "Please login"})
     }
   })
@@ -51,7 +53,18 @@ blogAPI.get('/bulk', async (c) => {
 		datasourceUrl: c.env.DATABASE_URL	,
 	}).$extends(withAccelerate());
 	
-	const posts = await prisma.post.findMany({});
+	const posts = await prisma.post.findMany({
+    select:{
+      id:true,
+      title:true,
+      content:true,
+      author:{
+        select:{
+          name:true
+        }
+      }
+    }
+  });
 
 	return c.json(posts);
 })
@@ -68,6 +81,16 @@ blogAPI.get('/:id', async (c) => {
         const result= await prisma.post.findFirst({
             where:{
                 id:blogId
+            },
+            select:{
+              id:true,
+              title:true,
+              content:true,
+              author:{
+                select:{
+                  name:true
+                }
+              }
             }
         })
 
@@ -88,9 +111,9 @@ blogAPI.post('/', async (c) => {
 
     const userId=c.get("userId");
 
-    const data=await c.req.json();
-    const body=data.data;
-
+    const body=await c.req.json();
+    
+      
     const{success}=creatPostInput.safeParse(body);
 
     if(!success){
@@ -125,8 +148,7 @@ blogAPI.put('/', async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate());
 
-      const data=await c.req.json();
-      const body=data.data;
+      const body=await c.req.json();
 
       const{success}=updatePostInput.safeParse(body);
 

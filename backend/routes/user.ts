@@ -80,7 +80,9 @@ userAPI.post('/signup', async (c) => {
     
     const data=await c.req.json();
     const body=data.data;
-
+    console.log(body);
+    
+    
     const {success} =signinInput.safeParse(body);
 
     if(!success){
