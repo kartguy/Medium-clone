@@ -45,7 +45,7 @@ const Right=()=>{
                 <div>
                     <h1 
                     className="text-md my-4 text-stone-500"> Don't have an account? 
-                    <NavLink to='/signup' className="underline p-2" >Signup</NavLink>
+                    <NavLink to='/' className="underline p-2" >Signup</NavLink>
                     </h1>
                 </div>
 
