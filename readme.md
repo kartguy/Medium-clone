@@ -1,6 +1,6 @@
 ## FullStack Medium clone
 
-Link:https://medium-eight-chi.vercel.app/
+Link: https://medium-eight-chi.vercel.app/
 
 ## Usage 
 
