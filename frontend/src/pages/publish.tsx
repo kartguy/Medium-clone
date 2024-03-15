@@ -12,6 +12,9 @@ export const Publish = () =>{
     });
 
     const navigate=useNavigate();
+    if(localStorage.getItem('token')==null){
+      navigate('/')
+    }
     
     return (
         <div>

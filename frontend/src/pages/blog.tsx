@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BlogView } from "../components/BlogView";
 import { useBlog } from "../hooks"
 import Appbar from "../components/AppBar";
@@ -6,6 +6,10 @@ import { BlogSkeleton } from "../components/BlogSkeleton";
 
 
 export const Blog = () =>{
+    const navigate=useNavigate();
+    if(localStorage.getItem('token')==null){
+        navigate('/')
+    }
     const {id}=useParams();
     
     const {loading,blog} = useBlog({

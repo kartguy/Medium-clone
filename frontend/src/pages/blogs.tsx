@@ -2,12 +2,16 @@ import BlogCard from "../components/BlogCard";
 import Appbar from "../components/AppBar";
 import { useBlogs } from "../hooks";
 import { BlogSkeleton } from "../components/BlogSkeleton";
+import { useNavigate } from "react-router-dom";
 
 
 const Blogs = ()=>{
 
     const {loading,blogs} =useBlogs();
-
+    const navigate=useNavigate();
+    if(localStorage.getItem('token')==null){
+      navigate('/')
+    }
     if(loading){
       return <div>
         <div>
