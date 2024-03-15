@@ -24,7 +24,7 @@ blogAPI.use('blog/*', async (c, next) => {
     try {
       const token=c.req.header("token");
       
-      const decodedPayload= await verify(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMjNiYzBjYS05MTNiLTRkNGQtOGYzNS00OGY2ZmM5YjZhODMifQ.iGM2Fngp74c7n-9DJR5FmK-KaENLGcASWUON7OmzMEQ`,c.env.JWT_SECRET);
+      const decodedPayload= await verify(`${token}`,c.env.JWT_SECRET);
       
       
       const userExists=await prisma.user.findUnique({
