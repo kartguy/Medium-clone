@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { BlogView } from "../components/BlogView";
 import { useBlog } from "../hooks"
 import Appbar from "../components/AppBar";
+import { BlogSkeleton } from "../components/BlogSkeleton";
 
 
 export const Blog = () =>{
@@ -11,16 +12,20 @@ export const Blog = () =>{
         id: id || ""
     });
 
-    if(loading){
+    if(loading || !blog){
         return <div>
             <Appbar />
-            loading...
+            <div >
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            </div>
+            
         </div>
     }
     
     return (
         <div>
-            
             <BlogView data={blog}/>
         </div>
     )

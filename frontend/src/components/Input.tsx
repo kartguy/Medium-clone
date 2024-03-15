@@ -11,9 +11,9 @@ const Input = ({label,onChange,placeholder,value}:inputType)=>{
 
     return(
         <div>
-            <label className="text-xl font-semibold">{label}</label>
+            <label className="text-md font-semibold">{label}</label>
             <input type={value} 
-            className="  border border-gray-30 w-full h-12 rounded-lg my-3 p-2 text-lg font-normal text-stone-600"
+            className="  border border-gray-30 w-full h-10 rounded-lg my-2 p-2 text-md font-normal text-stone-600"
             placeholder={placeholder}
             onChange={onChange}
             />

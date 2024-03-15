@@ -16,7 +16,7 @@ const blogAPI = new Hono<{
 }>();
 
 //middleware
-blogAPI.use('/*', async (c, next) => {
+blogAPI.use('blog/*', async (c, next) => {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
@@ -24,13 +24,15 @@ blogAPI.use('/*', async (c, next) => {
     try {
       const token=c.req.header("token");
       
-      const decodedPayload= await verify(`${token}`,c.env.JWT_SECRET);
+      const decodedPayload= await verify(`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMjNiYzBjYS05MTNiLTRkNGQtOGYzNS00OGY2ZmM5YjZhODMifQ.iGM2Fngp74c7n-9DJR5FmK-KaENLGcASWUON7OmzMEQ`,c.env.JWT_SECRET);
+      
       
       const userExists=await prisma.user.findUnique({
         where:{
           id:decodedPayload.userId
         }
       })
+      
       
       if(userExists==null){
         c.status(403)
@@ -48,7 +50,7 @@ blogAPI.use('/*', async (c, next) => {
   })
 
 //get all
-blogAPI.get('/bulk', async (c) => {
+blogAPI.get('blog/bulk', async (c) => {
 	const prisma = new PrismaClient({
 		datasourceUrl: c.env.DATABASE_URL	,
 	}).$extends(withAccelerate());
@@ -70,7 +72,7 @@ blogAPI.get('/bulk', async (c) => {
 })
 
 //get blog from id
-blogAPI.get('/:id', async (c) => {
+blogAPI.get('blog/:id', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate());
@@ -104,7 +106,7 @@ blogAPI.get('/:id', async (c) => {
 })
 
 //post blog
-blogAPI.post('/', async (c) => {
+blogAPI.post('/blog', async (c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate());
@@ -129,11 +131,15 @@ blogAPI.post('/', async (c) => {
                 title:body.title,
                 content:body.content,
                 authorId:userId
+            },
+            select:{
+              id:true
             }
         })
 
         return c.json({
-            msg:'blog created'
+            msg:'blog created',
+            id:res.id
         })
         
     } 
@@ -143,7 +149,7 @@ blogAPI.post('/', async (c) => {
 })
 
 //update blog
-blogAPI.put('/', async (c) => {
+blogAPI.put('/blog', async (c) => {
 	const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
       }).$extends(withAccelerate());

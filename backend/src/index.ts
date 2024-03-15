@@ -13,8 +13,9 @@ app.get('/',(c)=>{
   })
 })
 
+
 app.route('/api/v1/user',userAPI);
-app.route('/api/v1/blog',blogAPI)
+app.route('/api/v1/',blogAPI);
 
 
 export default app;

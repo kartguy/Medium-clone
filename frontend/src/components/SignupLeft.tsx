@@ -47,16 +47,16 @@ const Left=()=>{
         <div className="h-screen flex items-center text-center ">
             <div>
                 <div>
-                    <h1 className="text-5xl font-bold px-10">Create an account</h1>
+                    <h1 className="text-4xl font-bold px-10">Create an account</h1>
                 </div>
                 <div>
                     <h1 
-                    className="text-xl my-4 text-stone-500"> Already have an account? 
+                    className="text-md font-normal my-4 text-stone-500"> Already have an account? 
                     <NavLink to='/login' className="underline p-2" >Login</NavLink>
                     </h1>
                 </div>
                 
-                <div className="mt-8">
+                <div className="mt-7">
                     
                     <div className="text-left">
                         <Input label="Username" 
@@ -99,7 +99,7 @@ const Left=()=>{
 
                     <div>
                         <button 
-                        className="w-full h-12 bg-black text-white rounded-lg text-lg mt-2"
+                        className="w-full h-10 bg-black text-white rounded-lg text-sm mt-2"
                         onClick={sendRequest}
                         >Sign Up</button>
                     </div>

@@ -1,6 +1,7 @@
 import BlogCard from "../components/BlogCard";
 import Appbar from "../components/AppBar";
 import { useBlogs } from "../hooks";
+import { BlogSkeleton } from "../components/BlogSkeleton";
 
 
 const Blogs = ()=>{
@@ -12,9 +13,16 @@ const Blogs = ()=>{
         <div>
           <Appbar />
         </div>
-        <div>
-          loading...
+        <div className="flex justify-center max-w-full">
+        <div className="">
+          <BlogSkeleton />
+          <BlogSkeleton />
+          <BlogSkeleton />
+          <BlogSkeleton />
+          <BlogSkeleton />
         </div>
+        </div>
+        
         
       </div>
     }
@@ -29,7 +37,7 @@ const Blogs = ()=>{
 
       
         <div className="flex justify-center mt-8 ">
-            <div className="max-w-2xl">
+            <div className="max-w-xl">
                 {blogs.map((blog:any)=>{
                     return <div>
                         <BlogCard 

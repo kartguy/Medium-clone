@@ -40,16 +40,16 @@ const Right=()=>{
         <div className="h-screen flex items-center text-center ">
             <div>
                 <div>
-                    <h1 className="text-5xl font-bold px-40">Log in</h1>
+                    <h1 className="text-4xl font-bold px-40">Log in</h1>
                 </div>
                 <div>
                     <h1 
-                    className="text-xl my-4 text-stone-500"> Don't have an account? 
+                    className="text-md my-4 text-stone-500"> Don't have an account? 
                     <NavLink to='/signup' className="underline p-2" >Signup</NavLink>
                     </h1>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-7">
                     <div className="text-left">
                         <Input label="Email" 
                         placeholder="me@example.com"
@@ -78,7 +78,7 @@ const Right=()=>{
 
                     <div>
                         <button 
-                        className="w-full h-12 bg-black text-white rounded-lg text-lg mt-2"
+                        className="w-full h-10 bg-black text-white rounded-lg text-sm mt-2"
                         onClick={sendRequest}
                         >Login</button>
                     </div>

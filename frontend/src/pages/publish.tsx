@@ -21,7 +21,7 @@ export const Publish = () =>{
         
         <div className="flex justify-center">
             <div className="w-2/3 mt-16">
-                <div className="">
+                <div>
                     <input 
                     onChange={(e)=>{
                         setBlogInput({
@@ -29,7 +29,7 @@ export const Publish = () =>{
                             title:e.target.value
                         })
                     }}
-                    id="message" className="block p-2.5 w-full  text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Title..."></input>
+                    className="block p-2.5 w-full h-10 text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Title..."></input>
                 </div>
                 
                 <div className="mt-4">
@@ -40,38 +40,42 @@ export const Publish = () =>{
                             content:e.target.value
                         })
                     }}
-                    id="message" className="block p-2.5 w-full h-44 text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                    id="message" className="block p-2.5 w-full h-44 text-md text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
                 </div>
 
                 <div className="mt-4">
                 <button 
-                onClick={()=>{
+                onClick={async ()=>{
                     try {
-                        axios.post(`${BACKEND_URL}/api/v1/blog`,{
+                        let config = {
+                            method: 'post',
+                            maxBodyLength: Infinity,
+                            url:`${BACKEND_URL}/api/v1/blog`,
+                            headers: { 
+                              'token': localStorage.getItem("token"), 
+                              'Content-Type': 'application/json'
+                            },
                             data:{
                                 title:blogInput.title,
                                 content:blogInput.content
-                            },
-                            headers:{
-                                "token":localStorage.getItem("token")
                             }
-                        }).then((response)=>{
-                            console.log(response.data);
-                        })
+                          };
 
-                        console.log(localStorage.getItem("token"));
+                          const response= await axios.request(config);
+                          console.log(response.data);
+                          
                         
                         setTimeout(()=>{
                             alert("Blog published!")
                         },100)
 
-                        // navigate('/blogs')
+                        navigate(`/blog/${response.data.id}`)
                         
                     } catch (error) {
                         
                     }
                 }}
-                type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-lg px-5 py-2.5 text-center me-2 mb-2">Publish post </button>   
+                type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 text-center me-2 mb-2">Publish post </button>   
                 </div>
             </div>
         </div>
